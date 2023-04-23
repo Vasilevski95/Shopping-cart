@@ -1,0 +1,206 @@
+Shopping cart app:
+
+This shopping cart is a website that allows users to browse, select, and purchase products online.
+It is an e-commerce tool that allows customers to create a virtual shopping list of items they wish to purchase.
+It allows the customer to add and remove items, change quantities, and proceed to checkout to make the purchase.
+It also tracks the items in the cart and calculates the total cost of the items.
+
+
+
+
+
+main.tsx:
+
+This is a code written in TypeScript language using the React library.
+The first two lines of the code import the React and ReactDOM libraries from their respective packages.
+The next line imports the main component of the application, which is called App, from the ./App file.
+The following line imports a CSS file named index.css, which is used to style the application.
+The next line imports the Bootstrap CSS library.
+The BrowserRouter component is imported from the react-router-dom package, which is used to handle the routing of the application.
+The ReactDOM.createRoot() method is called with an argument of document.getElementById("root") as HTMLElement, which retrieves the DOM element with an ID of root.
+This method creates a new root React component, which is responsible for rendering the entire application.
+Inside the ReactDOM.createRoot().render() method, the <React.StrictMode> component is used,
+which is a development mode tool for highlighting potential problems in the application.
+The BrowserRouter component is wrapped around the App component, which will enable the routing of the application.
+Finally, the ReactDOM.createRoot().render() method is used to render the App component and its child components to the DOM element with an ID of root.
+
+
+
+
+
+
+
+App.tsx:
+
+The App function is defined, which returns the JSX code for the main component of the application.
+Inside the App function, the ShoppingCartProvider component is used to wrap the entire application,
+which will enable the child components to access the shopping cart data.
+The Navbar component is rendered first, which will display the navigation bar of the application.
+The Container component is used to wrap the child components, which will provide a consistent layout for the application.
+The Routes component is used to define the routes for the application.
+Inside the Routes component, three Route components are defined, which will render the Home, Store, and About components respectively, depending on the URL path.
+The path prop is used to specify the URL path for each Route component, while the element prop is used to specify the component to be rendered for that path.
+
+
+
+
+
+
+Navbar.tsx:
+
+This is the code for the Navbar component in a React application.
+The component uses React Bootstrap components to create a responsive navbar that sticks to the top of the page and has a shadow effect.
+The navbar contains three links, "Home", "Store", and "About", which are created using the NavLink component from React Router.
+The Navbar component also renders a shopping cart button, which is only shown if there are items in the cart.
+The shopping cart button is a round button with a shopping cart icon, and the number of items in the cart is displayed in a red circle next to the icon.
+Clicking on the shopping cart button opens the shopping cart modal, which is managed by the ShoppingCartProvider context.
+The ShoppingCartProvider context provides the openCart function and cartQuantity state value,
+which are used by the Navbar component to determine whether to show the shopping cart button and to handle the click event.
+
+
+
+
+
+
+
+Store.tsx:
+
+The storeItems array is imported from the ../data/items.json file, which contains the data for the items in the store.
+The Col and Row components are imported from the react-bootstrap package, which is used for styling the application.
+The StoreItem component is imported from the ../components/StoreItem file, which is used to display the individual items in the store.
+The Store function is defined, which returns the JSX code for the store page of the application.
+Inside the Store function, a header with the text "Store" is rendered using the h1 element.
+A Row component is used to create a horizontal row of columns, which will contain the StoreItem components.
+The md, xs, and lg props are used to specify the number of columns to be displayed for different screen sizes.
+The storeItems array is mapped over using the map() method, which creates a new array of Col components for each item in the storeItems array.
+The key prop is used to specify a unique key for each Col component, which helps React to efficiently update the DOM.
+Each Col component contains a StoreItem component, which is rendered using the spread operator ({...item}) to pass the individual item data as props to the StoreItem component.
+Finally, an empty Col component is added at the end of the Row, which will help to align the last StoreItem component to the left of the screen.
+The Store function is exported as the default component for the ./pages/Store file.
+
+
+
+
+
+
+
+formatCurrency.ts:
+
+This code defines a function called formatCurrency that takes in a number parameter and returns a string representing the currency value of that number in US dollars.
+The function first creates a new instance of Intl.NumberFormat, passing in an object with currency set to "USD" and style set to "currency".
+This is used to create a formatter that formats numbers as currency in US dollars.
+The function then calls the format method on the formatter with the number parameter passed in and returns the formatted string representing the currency value of the number.
+
+
+
+
+
+
+StoreItem.tsx:
+
+This is a TypeScript module that exports a React functional component called StoreItem. It receives four props:
+id: a number that identifies the item.
+name: a string that represents the name of the item.
+price: a number that represents the price of the item.
+imgUrl: a string that represents the URL of the image associated with the item.
+The component renders a Card from the react-bootstrap library with the item's image, name, and price.
+It also renders a button that allows users to add the item to the shopping cart.
+If the item is already in the cart, the component shows the quantity of the item in the cart,
+as well as buttons to increase and decrease the quantity, and a button to remove the item from the cart.
+The component uses the formatCurrency function from a separate utility module to format the price of the item as a USD currency string.
+The component also uses the useShoppingCart hook from a context module to manage the shopping cart state and update it when the user interacts with the component.
+
+
+
+
+
+
+
+ShoppingCartContext:
+
+This is a module that exports two components and two functions for managing a shopping cart in a React application.
+The first component is ShoppingCartProvider, which is a context provider that wraps the application and provides a shopping cart context to its descendants.
+The useShoppingCart hook can be used by any component that needs access to the cart context.
+The provider stores cart items in local storage so the cart persists even if the user refreshes the page or closes the browser.
+The second component is StoreItem, which represents a single item in the store. It receives four props: id, name, price, and imgUrl.
+The component uses the useShoppingCart hook to access the cart context and determine the quantity of the current item in the cart.
+It also provides buttons to add or remove the item from the cart.
+The formatCurrency function is a utility function that formats a number as a US dollar currency string.
+It is used by the StoreItem component to format the item price.
+The useLocalStorage hook is a custom hook that is used to store the cart items in local storage.
+It takes two arguments: the name of the local storage key and the initial value of the cart items array.
+
+
+
+
+
+
+
+ShoppingCart:
+
+This is a TypeScript React component named ShoppingCart. It takes in a single prop isOpen,
+which is a boolean value indicating whether or not the shopping cart should be displayed.
+The component renders an Offcanvas component from the react-bootstrap library, which displays the shopping cart off to the side of the screen when it is open.
+The Offcanvas component takes in a show prop to determine whether it should be displayed or hidden,
+and an onHide prop to be called when the user clicks outside of the cart to close it.
+Inside the Offcanvas, there is an Offcanvas.Header component with a title of "Cart", and an Offcanvas.Body component with a Stack component from react-bootstrap as its child.
+The Stack component is used to display each item in the cart, as well as the total price of the cart.
+The Stack component loops over each item in the cartItems array, which is obtained from the useShoppingCart hook from the ShoppingCartContext.
+For each item, a CartItem component is rendered with the item's id and quantity as props.
+Finally, there is a div element with the class ms-auto fw-bold fs-5, which is used to display the total price of the cart.
+This value is calculated using the reduce function on the cartItems array, where each item's price is multiplied by its quantity and added to the running total.
+The formatCurrency function is used to format the total price as a currency string.
+
+
+
+
+
+
+
+CartItem.tsx:
+
+This code defines a React component named CartItem that represents an item in the shopping cart. The component receives two props:
+id and quantity, which represent the ID of the item and the quantity of the item in the cart, respectively.
+The component renders an image of the item, its name, price, and quantity. It also renders a button to remove the item from the cart.
+The removeFromCart function is obtained from the useShoppingCart hook provided by the ShoppingCartContext context.
+The formatCurrency function is used to format the prices displayed in the component. It takes a numeric value and returns a string in the format of a currency.
+The component uses the Stack component from the react-bootstrap library to arrange its content vertically.
+The Button component from the same library is used to render the remove button.
+The component also uses the storeItems array from the items.json file to retrieve the information about the item being rendered.
+If the item is not found, the component returns null.
+Overall, this component represents a single item in the shopping cart and provides functionality to remove the item from the cart.
+
+
+
+
+
+
+useLocalStorage.ts:
+
+This is a custom hook called useLocalStorage that allows you to save and retrieve data from the browser's localStorage.
+It takes two arguments: a key string to identify the data, and an initialValue which can be either a value or a function that returns a value.
+The hook initializes the state using the useState hook with the initial value obtained from localStorage if it exists,
+otherwise it uses the provided initialValue.
+It then sets up an effect that saves the state to localStorage every time it changes.
+Finally, the hook returns an array containing the current state value and a function to update it.
+The types of the state value and the update function are inferred based on the type of the initial value.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
